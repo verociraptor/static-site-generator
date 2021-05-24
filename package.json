@@ -10,14 +10,59 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:static-site-hero.helloWorld"
+		"onCommand:extension.insertLink",
+		"onCommand:extension.insertFigure"
 	],
 	"main": "./extension.js",
 	"contributes": {
+		"configuration":{
+			"type":"object",
+			"title": "Static Site Hero Configuration",
+			"properties": {
+				"staticSiteHero.imagePathTemplate":{
+					"type":"string",
+					"default":"/images/${year}/${month}/",
+					"description": "Specifies the folder containing images."
+				},
+				"staticSiteHero.filePathTemplate":{
+					"type":"string",
+					"default":"/files/${year}/${month}/",
+					"description": "Specifies the folder containing files."
+				},
+				"staticSiteHero.widthCssClasses":{
+					"type":"array",
+					"default":["full-width","half-width","quarter-width"],
+					"description": "Array of strings representing possible CSS classes for width."
+				},
+				"staticSiteHero.alignmentCssClasses":{
+					"type":"array",
+					"default":["left","right"],
+					"description": "Array of strings representing possible CSS classes for alignment."
+				}
+			}
+		},
 		"commands": [
 			{
-				"command": "static-site-hero.helloWorld",
-				"title": "Hello World"
+				"command":"extension.insertLink",
+				"title":"Insert Markdown Link to File or Image"
+			},
+			{
+				"command":"extension.insertFigure",
+				"title":"Insert HTML Figure"
+			}
+		],
+		"keybindings":[
+			{
+				"command": "extension.insertLink",
+				"key": "shift+ctrl+l",
+				"mac": "shift+cmd+l",
+				"when":"editorTextFocus"
+			},
+			{
+				"command": "extension.insertFigure",
+				"key": "shift+ctrl+f",
+				"mac": "shift+cmd+f",
+				"when":"editorTextFocus"
 			}
 		]
 	},
